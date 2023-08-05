@@ -1,4 +1,9 @@
-# crudvue
+# JokesApp
+
+Generador de bromas creado en vueJS, vue-router y CSS3.
+## Apis consumidas:
+- https://api.chucknorris.io/
+- https://mymemory.translated.net/doc/spec.php
 
 ## Project setup
 ```
