@@ -16,6 +16,13 @@
             <p>"{{ broma }}"</p>
         </div>
         <button @click="consultarFrase">Nueva frase</button>
+        <h2>Cambiar idioma</h2>
+        <div class="idiomas">
+            <button @click="cambiarIdioma('es')">Español</button>
+            <button @click="cambiarIdioma('en')">Ingles</button>
+            <button @click="cambiarIdioma('pt')">Portugues</button>
+            <button @click="cambiarIdioma('fr')">Frances</button>
+        </div>
     </section>
 </template>
 <style scoped>
@@ -88,6 +95,17 @@
         background: none;
         color: #FFA500;
     }
+    .idiomas{
+        display: flex;
+        flex-direction: initial;
+        justify-content: center;
+        align-items: center;
+    }
+    .idiomas>button{
+        font-size: .8em;
+        margin: auto 5px;
+        padding: .5em 1em;
+    }
     @media (max-width: 520px) {
         div{
             width: 100%;
@@ -95,9 +113,6 @@
         form>div{
             width: 100%;
         }
-        /* label[for="apellido"]{
-        margin-top: 1em;
-        } */
         input{
             width: 100%;
         }
@@ -108,6 +123,7 @@
         data(){
             return{
                 broma:'',
+                idioma:'es',
                 nombre:'Abraham',
                 apellido:'Bartoloni',
             }
@@ -124,8 +140,8 @@
                 this.apellido = e.target.value
             },
             consultarFrase(){
-                fetch("https://api.chucknorris.io/jokes/random")
-                // fetch('https://api.chucknorris.io/jokes/random?category=movie')
+                    fetch("https://api.chucknorris.io/jokes/random")
+                    // fetch('https://api.chucknorris.io/jokes/random?category=sport')
                     .then(res => {
                     if (!res.ok) {
                         throw new Error('Network response was not ok');
@@ -142,8 +158,16 @@
                     console.error('Fetch error:', err);
                     });
             },
+            cambiarIdioma(idioma){
+                this.idioma = idioma;
+                console.log(this.idioma);
+            },
             traducirFrase(frase){
-                fetch(`https://api.mymemory.translated.net/get?q=${frase}&langpair=en|es`)
+                if(this.idioma == 'en'){
+                    this.broma = frase;
+                }else{
+                fetch(`https://api.mymemory.translated.net/get?q=${frase}&langpair=en|${this.idioma}`)
+                // fetch(`https://api.mymemory.translated.net/get?q=${frase}&langpair=en|es`)
                 .then(res => res.json())
                 .then(data => {
                     //console.log(data.responseData.translatedText);
@@ -152,6 +176,7 @@
                 .catch(err => {
                     console.error('error de traducción:', err);
                 });
+                }
             }
         }
     }
