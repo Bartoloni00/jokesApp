@@ -17,7 +17,7 @@
         </div>
         <button @click="consultarFrase">Nueva frase</button>
         <h2>Cambiar idioma</h2>
-        <div class="idiomas">
+        <div class="idiomas" @click="consultarFrase">
             <button @click="cambiarIdioma('es')">Español</button>
             <button @click="cambiarIdioma('en')">Ingles</button>
             <button @click="cambiarIdioma('pt')">Portugues</button>
